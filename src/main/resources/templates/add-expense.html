@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Expense</title>
+</head>
+<body>
+<form method="post" th:object="${expense}">
+    <ul th:if="${#fields.hasErrors('*')}">
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+    </ul>
+    <div>
+        <label th:for="${#ids.next('transactionDate')}">Date</label>
+        <input th:id="${#ids.seq('transactionDate')}" th:field="*{transactionDate}" type="date" required="required" />
+    </div>
+    <div>
+        <label th:for="${#ids.next('amount')}">Amount</label>
+        <input th:id="${#ids.seq('amount')}" th:field="*{amount}" type="number" step="0.01" required="required" />
+    </div>
+    <div>
+        <label th:for="${#ids.next('payee')}">Payee</label>
+        <input th:id="${#ids.seq('payee')}" th:field="*{payee}" type="text" required="required" />
+    </div>
+    <div>
+        <label th:for="${#ids.next('category')}">Category</label>
+        <input th:id="${#ids.seq('category')}" th:field="*{category}" type="text" required="required" />
+    </div>
+    <div>
+        <label th:for="${#ids.next('note')}">Note</label>
+        <input th:id="${#ids.seq('note')}" th:field="*{note}" type="text" />
+    </div>
+    <div>
+        <input th:id="${#ids.seq('isCleared')}" th:field="*{isCleared}" type="checkbox" />
+        <label th:for="${#ids.prev('isCleared')}">Cleared?</label>
+    </div>
+    <button type="submit">Save Expense</button>
+</form>
+</body>
+</html>

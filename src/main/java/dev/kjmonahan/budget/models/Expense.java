@@ -1,30 +1,40 @@
 package dev.kjmonahan.budget.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
+@Entity
 public class Expense {
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
     private double amount;
-    private Date transationDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date transactionDate;
     private String payee;
     private String category;
     private String note;
-    private boolean cleared;
+    private boolean isCleared;
 
-    public Expense(double amount, Date transationDate, String payee, String category, String note, boolean cleared) {
-        this.id = nextId;
-        nextId++;
+    public Expense() {
+    }
+
+    public Expense(double amount, Date transactionDate, String payee, String category, String note, boolean isCleared) {
+        this();
         this.amount = amount;
-        this.transationDate = transationDate;
+        this.transactionDate = transactionDate;
         this.payee = payee;
         this.category = category;
         this.note = note;
-        this.cleared = cleared;
+        this.isCleared = isCleared;
     }
 
-    public Expense(double amount, Date transationDate, String payee, String category) {
-        this(amount, transationDate, payee, category, "", false);
+    public Expense(double amount, Date transactionDate, String payee, String category) {
+        this(amount, transactionDate, payee, category, "", false);
     }
 
     public int getId() {
@@ -39,12 +49,12 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Date getTransationDate() {
-        return transationDate;
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setTransationDate(Date transationDate) {
-        this.transationDate = transationDate;
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     public String getPayee() {
@@ -71,12 +81,12 @@ public class Expense {
         this.note = note;
     }
 
-    public boolean isCleared() {
-        return cleared;
+    public boolean getIsCleared() {
+        return isCleared;
     }
 
     public void setCleared(boolean cleared) {
-        this.cleared = cleared;
+        this.isCleared = cleared;
     }
 
     @Override
