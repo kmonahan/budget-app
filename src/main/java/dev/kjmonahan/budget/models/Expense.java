@@ -1,17 +1,12 @@
 package dev.kjmonahan.budget.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Entity
-public class Expense {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Expense extends AbstractEntity {
     private double amount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date transactionDate;
@@ -35,10 +30,6 @@ public class Expense {
 
     public Expense(double amount, Date transactionDate, String payee, String category) {
         this(amount, transactionDate, payee, category, "", false);
-    }
-
-    public int getId() {
-        return id;
     }
 
     public double getAmount() {
@@ -87,19 +78,5 @@ public class Expense {
 
     public void setCleared(boolean cleared) {
         this.isCleared = cleared;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Expense expense = (Expense) o;
-        return getId() == expense.getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return getId();
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Category</title>
+</head>
+<body>
+<form method="post" th:object="${category}">
+    <ul th:if="${#fields.hasErrors('*')}">
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+    </ul>
+    <div>
+        <label th:for="${#ids.next('name')}">Name</label>
+        <input th:id="${#ids.seq('name')}" th:field="*{name}" type="text" required="required" />
+    </div>
+    <div>
+        <label th:for="${#ids.next('amount')}">Type</label>
+        <select th:field="*{type}" id="${#ids.seq('amount')}" required="required">
+            <option th:each="type : ${types}" th:value="${type}" th:text="${type.displayName}"></option>
+        </select>
+    </div>
+    <button type="submit">Save Category</button>
+</form>
+</body>
+</html>
